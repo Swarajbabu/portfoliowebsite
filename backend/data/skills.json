@@ -1,0 +1,72 @@
+[
+  {
+    "_id": "1",
+    "name": "C",
+    "category": "Languages",
+    "level": "Intermediate",
+    "icon": "code"
+  },
+  {
+    "_id": "2",
+    "name": "C++",
+    "category": "Languages",
+    "level": "Intermediate",
+    "icon": "code"
+  },
+  {
+    "_id": "3",
+    "name": "Python",
+    "category": "Languages",
+    "level": "Advanced",
+    "icon": "python"
+  },
+  {
+    "_id": "4",
+    "name": "JavaScript",
+    "category": "Languages",
+    "level": "Advanced",
+    "icon": "js"
+  },
+  {
+    "_id": "6",
+    "name": "React.js",
+    "category": "Frontend",
+    "level": "Advanced",
+    "icon": "react"
+  },
+  {
+    "_id": "7",
+    "name": "Node.js",
+    "category": "Backend",
+    "level": "Intermediate",
+    "icon": "node"
+  },
+  {
+    "_id": "8",
+    "name": "HTML",
+    "category": "Frontend",
+    "level": "Advanced",
+    "icon": "html5"
+  },
+  {
+    "_id": "9",
+    "name": "CSS",
+    "category": "Frontend",
+    "level": "Advanced",
+    "icon": "css3"
+  },
+  {
+    "_id": "10",
+    "name": "MySQL",
+    "category": "Database",
+    "level": "Intermediate",
+    "icon": "database"
+  },
+  {
+    "_id": "11",
+    "name": "Git",
+    "category": "Tools",
+    "level": "Intermediate",
+    "icon": "git"
+  }
+]

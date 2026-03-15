@@ -1,0 +1,19 @@
+[
+  {
+    "_id": "1",
+    "title": "AI Mock Interview Platform",
+    "description": "An AI-powered system conducting personalized interviews with real-time voice/video interaction and NLP feedback. Built with React, Node.js, and integrated with AI APIs for smart question generation.",
+    "technologies": [
+      "React.js",
+      "Node.js",
+      "NLP",
+      "Convex",
+      "OpenAI"
+    ],
+    "githubUrl": "https://github.com/Swarajbabu",
+    "liveUrl": "",
+    "imageUrl": "",
+    "featured": true,
+    "order": 1
+  }
+]

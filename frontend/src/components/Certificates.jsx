@@ -1,0 +1,78 @@
+import { Award, ExternalLink } from 'lucide-react';
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
+
+const Certificates = () => {
+  const certs = useQuery(api.certificates.getAll);
+  const loading = certs === undefined;
+
+  const CERT_COLORS = [
+    'from-yellow-500 to-orange-500',
+    'from-blue-500 to-cyan-500',
+    'from-purple-500 to-pink-500',
+    'from-green-500 to-teal-500',
+    'from-red-500 to-pink-500',
+    'from-indigo-500 to-blue-500',
+  ];
+
+  return (
+    <section id="certificates" className="section-padding">
+      <div className="max-w-7xl mx-auto">
+        <div className="section-heading">
+          <span className="section-label">Credentials</span>
+          <h2 className="section-title">
+            My <span className="gradient-text">Certificates</span>
+          </h2>
+        </div>
+
+        {loading ? (
+          <div className="flex justify-center py-20">
+            <div className="w-12 h-12 border-4 border-accent-500 border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+             {(certs || []).map((cert, idx) => {
+              const gradient = CERT_COLORS[idx % CERT_COLORS.length];
+              return (
+                 <div
+                  key={cert._id}
+                  className="glass-card rounded-2xl p-5 flex flex-col"
+                >
+                  {/* Icon badge */}
+                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-4 flex-shrink-0`}>
+                    <Award size={24} className="text-white" />
+                  </div>
+                  {/* Content */}
+                   <h3 className="text-white font-semibold text-sm leading-snug mb-2 flex-1">
+                    {cert.title}
+                  </h3>
+                   <p className={`text-sm font-medium bg-gradient-to-r ${gradient} bg-clip-text text-transparent mb-1`}>
+                    {cert.issuer}
+                  </p>
+                  {cert.issuedDate && (
+                    <p className="text-xs text-gray-600 mb-3">
+                      {new Date(cert.issuedDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                    </p>
+                  )}
+                  {cert.credentialUrl && (
+                    <a
+                      href={cert.credentialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                       className="flex items-center gap-1 text-xs text-accent-400 hover:text-accent-300 transition-colors mt-auto"
+                    >
+                      <ExternalLink size={12} />
+                      View Certificate
+                    </a>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+export default Certificates;

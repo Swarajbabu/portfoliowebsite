@@ -1,0 +1,12 @@
+[
+  {
+    "_id": "2",
+    "title": "Data Analyst Intern",
+    "organization": "Unified Mentor Pvt Ltd",
+    "description": "Analyzed large datasets using Python (Pandas, NumPy). Performed Data Cleaning & EDA. Built interactive Power BI dashboards. Developed predictive models and created visualizations.",
+    "startDate": "2024-06-01",
+    "endDate": "2024-08-31",
+    "type": "Experience",
+    "order": 2
+  }
+]
