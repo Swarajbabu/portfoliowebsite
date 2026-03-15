@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: portfolio-backend
+    runtime: node
+    rootDir: .
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        sync: false        # You must set this in Render dashboard
+      - key: CONVEX_URL
+        sync: false        # You must set this in Render dashboard
+      - key: FRONTEND_URL
+        sync: false        # Your Vercel URL, set in Render dashboard
+      - key: GMAIL_USER
+        sync: false        # Set in Render dashboard
+      - key: GMAIL_APP_PASSWORD
+        sync: false        # Set in Render dashboard
+      - key: CONTACT_RECIPIENT_EMAIL
+        sync: false        # Set in Render dashboard

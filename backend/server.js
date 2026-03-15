@@ -7,9 +7,23 @@ dotenv.config();
 const app = express();
 
 // Middleware
+const allowedOrigins = [
+  /^http:\/\/localhost(:\d+)?$/,   // local dev
+  ...(process.env.FRONTEND_URL
+    ? process.env.FRONTEND_URL.split(',').map(u => u.trim())
+    : []),
+];
 app.use(cors({
-  origin: process.env.FRONTEND_URL || /^http:\/\/localhost(:\d+)?$/,
-  credentials: true
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g. curl, Postman, server-to-server)
+    if (!origin) return callback(null, true);
+    const allowed = allowedOrigins.some(o =>
+      typeof o === 'string' ? o === origin : o.test(origin)
+    );
+    if (allowed) return callback(null, true);
+    return callback(new Error(`CORS: origin ${origin} not allowed`));
+  },
+  credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
