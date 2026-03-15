@@ -8,7 +8,10 @@ const app = express();
 
 // Middleware
 const allowedOrigins = [
-  /^http:\/\/localhost(:\d+)?$/,   // local dev
+  /^http:\/\/localhost(:\d+)?$/,         // local dev
+  /^https:\/\/.*\.vercel\.app$/,         // any Vercel preview / production URL
+  /^https:\/\/.*\.in$/,                  // custom .in domains (e.g. swarajvecha.in)
+  /^https:\/\/.*\.com$/,                 // custom .com domains
   ...(process.env.FRONTEND_URL
     ? process.env.FRONTEND_URL.split(',').map(u => u.trim())
     : []),
