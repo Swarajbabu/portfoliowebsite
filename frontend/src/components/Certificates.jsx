@@ -34,13 +34,13 @@ const Certificates = () => {
             empty={!loading && !error && certs?.length === 0}
           />
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="flex overflow-x-auto pb-6 gap-5 snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible sm:pb-0">
              {(certs || []).map((cert, idx) => {
               const gradient = CERT_COLORS[idx % CERT_COLORS.length];
               return (
                  <div
                   key={cert._id}
-                  className="glass-card rounded-2xl p-5 flex flex-col"
+                  className="glass-card rounded-2xl p-5 flex flex-col flex-none w-[80vw] sm:w-auto snap-center"
                 >
                   {/* Icon badge */}
                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-4 flex-shrink-0`}>

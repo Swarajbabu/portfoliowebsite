@@ -127,6 +127,13 @@ const Navbar = () => {
                 Download Resume
               </a>
             )}
+            <Link 
+              to="/admin/login" 
+              onClick={() => setIsMenuOpen(false)}
+              className="text-left px-4 py-3 text-gray-500 hover:text-white transition-colors border-t border-white border-opacity-5 mt-2"
+            >
+              Admin Access
+            </Link>
           </div>
         </div>
       )}

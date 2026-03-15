@@ -27,11 +27,11 @@ const Projects = () => {
             empty={!loading && !error && projectsData?.length === 0}
           />
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex overflow-x-auto pb-6 gap-6 snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible md:pb-0">
             {(projectsData || []).map((project, idx) => (
               <div
                 key={project._id}
-                className="glass-card rounded-2xl overflow-hidden flex flex-col"
+                className="glass-card rounded-2xl overflow-hidden flex flex-col flex-none w-[85vw] sm:w-[350px] snap-center md:w-auto"
               >
                 {/* Project Image / Placeholder */}
                 <div

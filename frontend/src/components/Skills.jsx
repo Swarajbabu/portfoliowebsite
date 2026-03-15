@@ -49,11 +49,11 @@ const Skills = () => {
             empty={!loading && !error && skillsData?.length === 0}
           />
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex overflow-x-auto pb-6 gap-6 snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible md:pb-0">
             {Object.entries(grouped).map(([category, categorySkills]) => {
               const gradient = CATEGORY_COLORS[category] || CATEGORY_COLORS['Other'];
               return (
-                <div key={category} className="glass-card rounded-2xl p-6">
+                <div key={category} className="glass-card rounded-2xl p-6 flex-none w-[85vw] sm:w-[350px] snap-center md:w-auto">
                   {/* Category header */}
                   <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r ${gradient} bg-opacity-20 text-white text-sm font-semibold mb-5`}
                     style={{ background: 'rgba(79, 70, 229, 0.15)' }}>

@@ -8,12 +8,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   body {
-    @apply bg-dark-900 text-white font-sans;
+    @apply bg-dark-900 text-white font-sans overflow-x-hidden;
     scrollbar-width: thin;
     scrollbar-color: #4f46e5 #0f0f1a;
+    width: 100%;
+    max-width: 100vw;
   }
 
   ::-webkit-scrollbar {
@@ -101,7 +105,7 @@
 
   /* Section padding */
   .section-padding {
-    @apply py-24 px-4;
+    @apply py-16 md:py-24 px-4 sm:px-6 lg:px-8;
   }
 
   /* Section heading */
@@ -114,7 +118,7 @@
   }
 
   .section-title {
-    @apply text-4xl md:text-5xl font-display font-bold;
+    @apply text-3xl sm:text-4xl md:text-5xl font-display font-bold;
   }
 
   /* Timeline */
