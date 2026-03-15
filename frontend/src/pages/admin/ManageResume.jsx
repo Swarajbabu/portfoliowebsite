@@ -3,6 +3,7 @@ import { FileText, Save, ExternalLink, Upload } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import SectionState from '../../components/SectionState';
 
 const ManageResume = () => {
   const resume = useQuery(api.resume.get);
@@ -18,6 +19,7 @@ const ManageResume = () => {
   }, [resume]);
 
   const loading = resume === undefined;
+  const error = resume instanceof Error ? resume : null;
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -36,8 +38,8 @@ const ManageResume = () => {
         <p className="text-gray-400 mt-1">Update the downloadable resume PDF link</p>
       </div>
 
-      {loading ? (
-        <div className="flex justify-center py-20"><div className="w-12 h-12 border-4 border-accent-500 border-t-transparent rounded-full animate-spin" /></div>
+      {(loading || error) ? (
+        <SectionState loading={loading} error={error} />
       ) : (
         <div className="max-w-2xl space-y-6">
           {/* Current resume */}

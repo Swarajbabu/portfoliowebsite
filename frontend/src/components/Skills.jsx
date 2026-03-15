@@ -1,5 +1,6 @@
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import SectionState from './SectionState';
 
 const SKILL_ICONS = {
   'c': '🔵', 'c++': '🔷', 'python': '🐍', 'javascript': '⚡', 'js': '⚡',
@@ -21,6 +22,7 @@ const CATEGORY_COLORS = {
 const Skills = () => {
   const skillsData = useQuery(api.skills.getAll);
   const loading = skillsData === undefined;
+  const error = skillsData instanceof Error ? skillsData : null;
 
   // Group by category
   const grouped = (skillsData || []).reduce((acc, skill) => {
@@ -40,10 +42,12 @@ const Skills = () => {
           </h2>
         </div>
 
-        {loading ? (
-          <div className="flex justify-center py-20">
-            <div className="w-12 h-12 border-4 border-accent-500 border-t-transparent rounded-full animate-spin" />
-          </div>
+        {(loading || error || (skillsData && skillsData.length === 0)) ? (
+          <SectionState
+            loading={loading}
+            error={error}
+            empty={!loading && !error && skillsData?.length === 0}
+          />
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Object.entries(grouped).map(([category, categorySkills]) => {

@@ -1,7 +1,8 @@
-import { Code2, FolderKanban, BookOpen, Award, GraduationCap, TrendingUp } from 'lucide-react';
+import { Code2, FolderKanban, BookOpen, Award, GraduationCap, TrendingUp, AlertTriangle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import SectionState from '../../components/SectionState';
 
 const StatCard = ({ icon, label, count, color, path }) => (
   <Link to={path} className="glass-card rounded-2xl p-6 flex items-start gap-4 hover:scale-105 transition-transform block">
@@ -29,12 +30,16 @@ const AdminDashboard = () => {
     certs === undefined || 
     edu === undefined;
 
+  const hasError = [
+    skills, projects, training, certs, edu,
+  ].some((d) => d instanceof Error);
+
   const stats = {
-    skills: skills?.length,
-    projects: projects?.length,
-    training: training?.length,
-    certificates: certs?.length,
-    education: edu?.length,
+    skills: skills instanceof Error ? '!' : skills?.length,
+    projects: projects instanceof Error ? '!' : projects?.length,
+    training: training instanceof Error ? '!' : training?.length,
+    certificates: certs instanceof Error ? '!' : certs?.length,
+    education: edu instanceof Error ? '!' : edu?.length,
   };
 
   return (
@@ -47,46 +52,23 @@ const AdminDashboard = () => {
 
       {/* Stats Grid */}
       {loading ? (
-        <div className="flex justify-center py-20">
-          <div className="w-12 h-12 border-4 border-accent-500 border-t-transparent rounded-full animate-spin" />
-        </div>
+        <SectionState loading={loading} />
       ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
-          <StatCard
-            icon={<Code2 size={28} className="text-white" />}
-            label="Skills"
-            count={stats.skills}
-            color="bg-gradient-to-br from-blue-500 to-cyan-500"
-            path="/admin/skills"
-          />
-          <StatCard
-            icon={<FolderKanban size={28} className="text-white" />}
-            label="Projects"
-            count={stats.projects}
-            color="bg-gradient-to-br from-violet-500 to-purple-500"
-            path="/admin/projects"
-          />
-          <StatCard
-            icon={<BookOpen size={28} className="text-white" />}
-            label="Training & Experience"
-            count={stats.training}
-            color="bg-gradient-to-br from-green-500 to-emerald-500"
-            path="/admin/training"
-          />
-          <StatCard
-            icon={<Award size={28} className="text-white" />}
-            label="Certificates"
-            count={stats.certificates}
-            color="bg-gradient-to-br from-yellow-500 to-orange-500"
-            path="/admin/certificates"
-          />
-          <StatCard
-            icon={<GraduationCap size={28} className="text-white" />}
-            label="Education"
-            count={stats.education}
-            color="bg-gradient-to-br from-pink-500 to-rose-500"
-            path="/admin/education"
-          />
+        <div className="mb-10">
+          {hasError && (
+            <div className="flex items-center gap-3 p-4 rounded-2xl mb-5 border border-yellow-500 border-opacity-30"
+              style={{ background: 'rgba(234, 179, 8, 0.05)' }}>
+              <AlertTriangle size={20} className="text-yellow-400 flex-shrink-0" />
+              <p className="text-yellow-300 text-sm">One or more sections failed to load. Stats marked with <strong>!</strong> are unavailable.</p>
+            </div>
+          )}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <StatCard icon={<Code2 size={28} className="text-white" />} label="Skills" count={stats.skills} color="bg-gradient-to-br from-blue-500 to-cyan-500" path="/admin/skills" />
+            <StatCard icon={<FolderKanban size={28} className="text-white" />} label="Projects" count={stats.projects} color="bg-gradient-to-br from-violet-500 to-purple-500" path="/admin/projects" />
+            <StatCard icon={<BookOpen size={28} className="text-white" />} label="Training & Experience" count={stats.training} color="bg-gradient-to-br from-green-500 to-emerald-500" path="/admin/training" />
+            <StatCard icon={<Award size={28} className="text-white" />} label="Certificates" count={stats.certificates} color="bg-gradient-to-br from-yellow-500 to-orange-500" path="/admin/certificates" />
+            <StatCard icon={<GraduationCap size={28} className="text-white" />} label="Education" count={stats.education} color="bg-gradient-to-br from-pink-500 to-rose-500" path="/admin/education" />
+          </div>
         </div>
       )}
 

@@ -1,10 +1,12 @@
 import { Award, ExternalLink } from 'lucide-react';
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import SectionState from './SectionState';
 
 const Certificates = () => {
   const certs = useQuery(api.certificates.getAll);
   const loading = certs === undefined;
+  const error = certs instanceof Error ? certs : null;
 
   const CERT_COLORS = [
     'from-yellow-500 to-orange-500',
@@ -25,10 +27,12 @@ const Certificates = () => {
           </h2>
         </div>
 
-        {loading ? (
-          <div className="flex justify-center py-20">
-            <div className="w-12 h-12 border-4 border-accent-500 border-t-transparent rounded-full animate-spin" />
-          </div>
+        {(loading || error || (certs && certs.length === 0)) ? (
+          <SectionState
+            loading={loading}
+            error={error}
+            empty={!loading && !error && certs?.length === 0}
+          />
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
              {(certs || []).map((cert, idx) => {

@@ -1,10 +1,12 @@
 import { Github, ExternalLink } from 'lucide-react';
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import SectionState from './SectionState';
 
 const Projects = () => {
   const projectsData = useQuery(api.projects.getAll);
   const loading = projectsData === undefined;
+  const error = projectsData instanceof Error ? projectsData : null;
 
   const PROJECT_ICONS = ['🤖', '⚡', '📊', '🛠️', '🧠', '🌐'];
 
@@ -18,10 +20,12 @@ const Projects = () => {
           </h2>
         </div>
 
-        {loading ? (
-          <div className="flex justify-center py-20">
-            <div className="w-12 h-12 border-4 border-accent-500 border-t-transparent rounded-full animate-spin" />
-          </div>
+        {(loading || error || (projectsData && projectsData.length === 0)) ? (
+          <SectionState
+            loading={loading}
+            error={error}
+            empty={!loading && !error && projectsData?.length === 0}
+          />
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {(projectsData || []).map((project, idx) => (

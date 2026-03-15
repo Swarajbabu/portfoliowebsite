@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { BookOpen, Briefcase, Calendar } from 'lucide-react';
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import SectionState from './SectionState';
 
 const TrainingExperience = () => {
   const items = useQuery(api.training.getAll);
   const loading = items === undefined;
+  const error = items instanceof Error ? items : null;
   
   const [filter, setFilter] = useState('All');
 
@@ -44,10 +46,12 @@ const TrainingExperience = () => {
           ))}
         </div>
 
-        {loading ? (
-          <div className="flex justify-center py-20">
-            <div className="w-12 h-12 border-4 border-accent-500 border-t-transparent rounded-full animate-spin" />
-          </div>
+        {(loading || error || (items && items.length === 0)) ? (
+          <SectionState
+            loading={loading}
+            error={error}
+            empty={!loading && !error && items?.length === 0}
+          />
         ) : (
           <div className="relative timeline-line pl-12">
              {filtered.map((item) => (
@@ -82,8 +86,8 @@ const TrainingExperience = () => {
               </div>
             ))}
 
-            {filtered.length === 0 && (
-              <p className="text-center text-gray-500 py-8">No entries found.</p>
+            {filtered.length === 0 && items?.length > 0 && (
+              <p className="text-center text-gray-500 py-8">No entries match the filter.</p>
             )}
           </div>
         )}
