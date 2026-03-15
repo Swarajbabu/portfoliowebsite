@@ -28,6 +28,12 @@ app.use(cors({
   },
   credentials: true,
 }));
+// Override Render's default Cross-Origin-Resource-Policy: same-origin header
+// Without this, browsers block cross-origin fetch responses (ERR_BLOCKED_BY_RESPONSE.NotSameOrigin)
+app.use((req, res, next) => {
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  next();
+});
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
