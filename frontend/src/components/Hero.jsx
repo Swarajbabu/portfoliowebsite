@@ -74,19 +74,19 @@ const Hero = () => {
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 pt-20">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 border border-accent-500 border-opacity-30 bg-accent-500 bg-opacity-10 text-accent-400">
-          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          {hero.badgeText || DEFAULT_HERO.badgeText}
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 border border-accent-500 border-opacity-30 bg-accent-500 bg-opacity-10 text-accent-400 max-w-full">
+          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" />
+          <span className="break-words text-center">{hero.badgeText || DEFAULT_HERO.badgeText}</span>
         </div>
 
         {/* Name */}
-        <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 leading-tight">
+        <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 leading-tight break-words">
           {hero.firstName || DEFAULT_HERO.firstName}{' '}
           <span className="gradient-text">{hero.lastName || DEFAULT_HERO.lastName}</span>
         </h1>
 
         {/* Typing effect */}
-        <div className="text-xl md:text-2xl text-gray-400 mb-8 h-8">
+        <div className="text-xl md:text-2xl text-gray-400 mb-8 min-h-[2rem] break-words">
            I am a{' '}
           <span className="text-accent-400 font-semibold typing-cursor">
             {displayText}
@@ -94,7 +94,7 @@ const Hero = () => {
         </div>
 
         {/* Description */}
-        <p className="text-gray-400 max-w-2xl mx-auto mb-12 text-lg leading-relaxed">
+        <p className="text-gray-400 max-w-2xl mx-auto mb-12 text-lg leading-relaxed break-words w-full">
           {hero.description || DEFAULT_HERO.description}
         </p>
 

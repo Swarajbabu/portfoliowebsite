@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Mail, Linkedin, Github, MapPin, Send } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { useQuery, useMutation } from "convex/react";
+import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 
 const Contact = () => {
   const contactInfo = useQuery(api.contact.get);
-  const sendMessage = useMutation(api.contact.sendMessage);
 
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [sending, setSending] = useState(false);
@@ -19,11 +18,19 @@ const Contact = () => {
     }
     setSending(true);
     try {
-      await sendMessage(form);
+      // Call Express backend which sends real email via nodemailer
+      const res = await fetch('http://localhost:5000/api/contact/message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Failed to send');
       toast.success('Message sent successfully! I\'ll get back to you soon.');
       setForm({ name: '', email: '', message: '' });
-    } catch {
-      toast.error('Failed to send message. Please try again.');
+    } catch (err) {
+      console.error('Contact form error:', err);
+      toast.error(err.message || 'Failed to send message. Please try again.');
     } finally {
       setSending(false);
     }

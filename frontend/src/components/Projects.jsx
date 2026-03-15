@@ -76,8 +76,8 @@ const Projects = () => {
 
                 {/* Content */}
                 <div className="p-6 flex flex-col flex-1">
-                  <h3 className="text-lg font-display font-bold text-white mb-3">{project.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1">
+                  <h3 className="text-lg font-display font-bold text-white mb-3 break-words">{project.title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1 break-words">
                     {project.description}
                   </p>
                   {/* Tech Stack */}
