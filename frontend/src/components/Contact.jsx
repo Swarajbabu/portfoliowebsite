@@ -19,7 +19,7 @@ const Contact = () => {
     setSending(true);
     try {
       // Call Express backend which sends real email via nodemailer
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/contact/message`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/api'}/contact/message`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
