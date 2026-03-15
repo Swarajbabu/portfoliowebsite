@@ -15,14 +15,14 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/api'}/auth/login`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Login failed');
-      
+
       localStorage.setItem('admin_token', data.token);
       localStorage.setItem('admin_user', JSON.stringify(data.user));
       setToken(data.token);
@@ -38,9 +38,9 @@ export const AuthProvider = ({ children }) => {
   const updateCredentials = async (currentPassword, newUsername, newPassword) => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/api'}/auth/update`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/auth/update`, {
         method: 'PUT',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
@@ -48,12 +48,12 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Failed to update credentials');
-      
+
       // Update local user details with the new username
       const updatedUser = { ...user, username: newUsername };
       localStorage.setItem('admin_user', JSON.stringify(updatedUser));
       setUser(updatedUser);
-      
+
       return { success: true };
     } catch (err) {
       return { success: false, message: err.message };

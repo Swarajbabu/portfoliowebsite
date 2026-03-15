@@ -19,7 +19,7 @@ const Contact = () => {
     setSending(true);
     try {
       // Call Express backend which sends real email via nodemailer
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/api'}/contact/message`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/contact/message`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -70,7 +70,7 @@ const Contact = () => {
                   <div>
                     <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">{link.label}</p>
                     {link.href ? (
-                       <a href={link.href} target="_blank" rel="noopener noreferrer"
+                      <a href={link.href} target="_blank" rel="noopener noreferrer"
                         className="text-white text-sm font-medium hover:text-accent-400 transition-colors">
                         {link.value}
                       </a>
@@ -85,7 +85,7 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div>
-             <h3 className="text-xl font-display font-bold text-white mb-6">Send a Message</h3>
+            <h3 className="text-xl font-display font-bold text-white mb-6">Send a Message</h3>
             <form onSubmit={handleSubmit} className="glass-card rounded-2xl p-8 space-y-5">
               <div>
                 <label className="form-label">Your Name</label>
@@ -127,7 +127,7 @@ const Contact = () => {
                     Sending...
                   </span>
                 ) : (
-                   <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-2">
                     <Send size={16} />
                     Send Message
                   </span>
