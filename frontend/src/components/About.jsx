@@ -71,7 +71,7 @@ const About = () => {
             <span className="section-label">About Me</span>
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
               {headingHighlight ? (
-                 <>
+                <>
                   {headingMain}
                   <span className="gradient-text">{headingHighlight}</span>
                 </>
@@ -79,13 +79,13 @@ const About = () => {
                 data.heading || DEFAULT.heading
               )}
             </h2>
-             <p className="text-gray-400 text-lg mb-6 leading-relaxed">{data.bio1 || DEFAULT.bio1}</p>
-             <p className="text-gray-500 mb-8 leading-relaxed">{data.bio2 || DEFAULT.bio2}</p>
+            <p className="text-gray-400 text-lg mb-6 leading-relaxed">{data.bio1 || DEFAULT.bio1}</p>
+            <p className="text-gray-500 mb-8 leading-relaxed">{data.bio2 || DEFAULT.bio2}</p>
 
             {/* Quick info grid */}
             <div className="grid grid-cols-2 gap-4">
-               {infoItems.map((item) => (
-                 <div key={item.label} className="glass-card rounded-xl p-4 flex items-start gap-3">
+              {infoItems.map((item) => (
+                <div key={item.label} className="glass-card rounded-xl p-4 flex items-start gap-3">
                   <span className="text-accent-400 mt-1 flex-shrink-0">{item.icon}</span>
                   <div>
                     <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">{item.label}</p>
